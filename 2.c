@@ -1,36 +1,39 @@
-//WAP to subtract time ussing functions im C.
-
 #include <stdio.h>
 
-void subtractTime(int h1, int m1, int s1, int h2, int m2, int s2, int *diff_h, int *diff_m, int *diff_s) {
-    int time1 = h1 * 3600 + m1 * 60 + s1;
-    int time2 = h2 * 3600 + m2 * 60 + s2;
-    int diff_sec = time1 - time2;
-    if (diff_sec < 0) {
-        diff_sec += 24 * 3600;
+struct Time {
+    int hours;
+    int minutes;
+    int seconds;
+};
+
+struct Time subtractTime(struct Time time1, struct Time time2) {
+    int totalSeconds1 = time1.hours * 3600 + time1.minutes * 60 + time1.seconds;
+    int totalSeconds2 = time2.hours * 3600 + time2.minutes * 60 + time2.seconds;
+    int differenceSeconds = totalSeconds1 - totalSeconds2;
+    if (differenceSeconds < 0) {
+        differenceSeconds += 24 * 3600;
     }
-    *diff_h = diff_sec / 3600;
-    *diff_m = (diff_sec % 3600) / 60;
-    *diff_s = diff_sec % 60;
+    struct Time differenceTime = {differenceSeconds / 3600, (differenceSeconds % 3600) / 60, differenceSeconds % 60};
+    return differenceTime;
 }
 
 int main() {
-    int h1, m1, s1, h2, m2, s2, diff_h, diff_m, diff_s;
+    struct Time time1, time2, differenceTime;
     printf("Enter first time\n");
     printf("Hours: ");
-    scanf("%d", &h1);
+    scanf("%d", &time1.hours);
     printf("Minutes: ");
-    scanf("%d", &m1);
+    scanf("%d", &time1.minutes);
     printf("Seconds: ");
-    scanf("%d", &s1);
+    scanf("%d", &time1.seconds);
     printf("Enter second time\n");
     printf("Hours: ");
-    scanf("%d", &h2);
+    scanf("%d", &time2.hours);
     printf("Minutes: ");
-    scanf("%d", &m2);
+    scanf("%d", &time2.minutes);
     printf("Seconds: ");
-    scanf("%d", &s2);
-    subtractTime(h1, m1, s1, h2, m2, s2, &diff_h, &diff_m, &diff_s);
-    printf("The difference between times is %d hours %d minutes %d seconds", diff_h, diff_m, diff_s);
+    scanf("%d", &time2.seconds);
+    differenceTime = subtractTime(time1, time2);
+    printf("The difference between times is %d hours %d minutes %d seconds", differenceTime.hours, differenceTime.minutes, differenceTime.seconds);
     return 0;
 }
