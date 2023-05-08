@@ -38,6 +38,7 @@ void displayStudentData(int roll[], float marks[][3], float percent[], int n) {
 int main() {
     int n;
     printf("Enter the number of students: ");
+    
     scanf("%d", &n);
 
     int roll[n];
